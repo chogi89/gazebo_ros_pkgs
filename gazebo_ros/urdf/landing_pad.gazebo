@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<robot>
+
+  <!-- ros_control plugin -->
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/FWMAV</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+  <!-- camera_link -->
+  <gazebo reference="plate_link">
+    <mu1>100</mu1>
+    <mu2>50</mu2>
+    <material>landing_pad</material>
+  </gazebo>
+
+</robot>

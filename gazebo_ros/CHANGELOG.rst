@@ -2,33 +2,6 @@
 Changelog for package gazebo_ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-2.5.20 (2020-05-08)
--------------------
-* Add required parameter to empty_world nodes (`#1074 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/1074>`_)
-* Reorder fields initialization to match initialization order in .h file (`#987 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/987>`_)
-  This change fixes -Wreorder warnings. More on -Wreorder:
-  https://stackoverflow.com/questions/1828037/whats-the-point-of-g-wreorder
-* Contributors: Mabel Zhang, aeneev
-
-2.5.19 (2019-06-04)
--------------------
-* Add output arg to launch files, plus some small fixes (`#905 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/905>`_)
-  * Add output arg to empty_world
-  * add output arg to elevator_world
-  * add output arg to range_world
-  * don't set use_sim_time in range_world
-  Instead parse it to empty world, where it will be set.
-  * add xml prolog to all launch files
-  * Remove unnecessary arg in range_world.launch
-* Contributors: Matthijs van der Burgh
-
-2.5.18 (2019-01-23)
--------------------
-* Fix typo exist -> exists (`#833 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/833>`_)
-* Fix issue `#198 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/198>`_ 
-  (`#823 <https://github.com/ros-simulation/gazebo_ros_pkgs/issues/823>`_)
-* Contributors: Daniel Ingram, Jack Liu, Steven Peters
-
 2.5.17 (2018-06-07)
 -------------------
 

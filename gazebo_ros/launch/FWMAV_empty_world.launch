@@ -1,0 +1,19 @@
+<launch>
+  <arg name="mav_name" default="fwmav"/>
+  <arg name="world_name" default="no_gravity"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find gazebo_ros)/worlds/$(arg world_name).world" />
+    <!-- <arg name="debug" value="true"/> -->
+    <arg name="paused" value="false"/>
+    <!-- <arg name="gui" value="false"/> -->
+  </include>
+
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find gazebo_ros)/urdf/FWMAV_with_monocular_camera.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model FWMAV -param robot_description"/>
+
+</launch>

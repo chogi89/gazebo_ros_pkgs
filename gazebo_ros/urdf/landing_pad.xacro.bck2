@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!-- Landing Pad 6-DOF -->
+<robot name="FWMAV" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+  <xacro:property name="width" value="0.1" /> <!-- Square dimensions (widthxwidth) of beams -->
+  <xacro:property name="height1" value="2" /> <!-- Link 1 -->
+  <xacro:property name="height2" value="1" /> <!-- Link 2 -->
+  <xacro:property name="height3" value="1" /> <!-- Link 3 -->
+  <xacro:property name="camera_link" value="0.05" /> <!-- Size of square 'camera' box -->
+  <xacro:property name="axel_offset" value="0.05" /> <!-- Space btw top of beam and the each joint -->
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find gazebo_ros)/urdf/landing_pad.gazebo" />
+
+
+  <link name="world"/>
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+	    <box size="5 5 0.1"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.05"/>
+    </visual>
+    <inertial>
+      <mass value="1000" />
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="v_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+      <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="xp_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="yp_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="zp_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="xr_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="yr_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="1e-6 1e-6 1e-6"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="1" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <link name="plate_link">
+    <visual>
+      <origin xyz="0 0 2" rpy="0 0 0"/>
+      <geometry>
+        <box size="3 3 0.1"/>
+      </geometry>
+    </visual>
+    <inertial>
+      <mass value="10" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    <collision>
+      <origin xyz="0 0 2" rpy="0 0 0"/>
+      <geometry>
+      <box size="3 3 0.1"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joints -->
+
+  <joint name="base_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="base_link"/>
+  </joint>
+
+  <joint name="v_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 1" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="v_link"/>
+    <limit effort="300" velocity="0.1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000"/>
+  </joint>
+
+  <!-- x-prismatic -->
+
+  <joint name="xp_joint" type="prismatic">
+    <axis xyz="1 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="v_link"/>
+    <child link="xp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+  <!-- y-prismatic -->
+
+  <joint name="yp_joint" type="prismatic">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="xp_link"/>
+    <child link="yp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+  <!-- z-prismatic -->
+
+  <joint name="zp_joint" type="prismatic">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="yp_link"/>
+    <child link="zp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+  <!-- x-revolute -->
+
+  <joint name="xr_joint" type="revolute">
+    <axis xyz="1 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="zp_link"/>
+    <child link="xr_link"/>
+    <limit effort="300" velocity="0.1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+  <!-- y-revolute -->
+
+  <joint name="yr_joint" type="revolute">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="xr_link"/>
+    <child link="yr_link"/>
+    <limit effort="300" velocity="0.1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+  <!-- z-revolute -->
+
+  <joint name="zr_joint" type="revolute">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="yr_link"/>
+    <child link="plate_link"/>
+    <limit effort="300" velocity="0.1" lower="-1000" upper="1000"/>
+    <dynamics friction="1000" damping="0.7"/>
+  </joint>
+
+</robot>

@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!-- Landing Pad 6-DOF -->
+<robot name="FWMAV" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Constants for robot dimensions -->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+  <xacro:property name="mass" value="1" /> <!-- arbitrary value for mass -->
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find gazebo_ros)/urdf/landing_pad.gazebo" />
+
+  <link name="world"/>
+
+
+  <!-- x-prismatic -->
+
+  <joint name="xp_joint" type="prismatic">
+    <axis xyz="1 0 0" />
+    <origin xyz="5 0 2" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="xp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="xp_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- y-prismatic -->
+
+  <joint name="yp_joint" type="prismatic">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="xp_link"/>
+    <child link="yp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="yp_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- z-prismatic -->
+
+  <joint name="zp_joint" type="prismatic">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="yp_link"/>
+    <child link="zp_link"/>
+    <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="zp_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- z-continuous -->
+
+  <joint name="zc_joint" type="continuous">
+    <axis xyz="0 0 1" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="zp_link"/>
+    <child link="zc_link"/>
+    <limit effort="300" velocity="1"/>
+    <dynamics friction="900000"/>
+  </joint>
+
+  <link name="zc_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- y-continuous -->
+
+  <joint name="yc_joint" type="continuous">
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="zc_link"/>
+    <child link="yc_link"/>
+    <limit effort="300" velocity="1"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="yc_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- x-continuous -->
+
+  <joint name="xc_joint" type="continuous">
+    <axis xyz="1 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="yc_link"/>
+    <child link="xc_link"/>
+    <limit effort="300" velocity="1"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="xc_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="1e-6 1e-6 1e-6"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="0.1" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+  </link>
+
+  <!-- y-continuous -->
+
+  <joint name="plate_joint" type="fixed">
+    <axis xyz="0 0 0" />
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="xc_link"/>
+    <child link="plate_link"/>
+    <limit effort="300" velocity="1"/>
+    <dynamics friction="100000"/>
+  </joint>
+
+  <link name="plate_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="3 3 1e-1"/>
+        </geometry>
+      </visual>
+      <inertial>
+        <mass value="10" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="1e-6" ixy="1e-6" ixz="1e-6" iyy="1e-6" iyz="1e-6" izz="1e-6" />
+      </inertial>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+          <box size="3 3 1e-1"/>
+        </geometry>
+        <surface>
+          <friction>
+            <ode>
+              <mu>100</mu>
+              <mu2>50</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+  </link>
+
+</robot>
