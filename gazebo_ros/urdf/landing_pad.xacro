@@ -16,7 +16,7 @@
 
   <joint name="xp_joint" type="prismatic">
     <axis xyz="1 0 0" />
-    <origin xyz="5 0 2" rpy="0 0 0"/>
+    <origin xyz="5 0 3" rpy="0 0 0"/>
     <parent link="world"/>
     <child link="xp_link"/>
     <limit effort="300" velocity="1" lower="-1000" upper="1000"/>
